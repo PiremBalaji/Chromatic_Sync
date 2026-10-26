@@ -3,7 +3,7 @@ from io import BytesIO
 import pytest
 from PIL import Image
 
-from modules.preprocessing import load_image, resize_for_analysis
+from modules.preprocessing import crop_image, load_image, resize_for_analysis
 
 
 def image_bytes(image_format: str = "PNG") -> bytes:
@@ -35,3 +35,11 @@ def test_resize_for_analysis_preserves_aspect_ratio() -> None:
 def test_resize_for_analysis_rejects_invalid_size() -> None:
     with pytest.raises(ValueError, match="positive"):
         resize_for_analysis(Image.new("RGB", (10, 10)), max_size=0)
+
+
+def test_crop_image_uses_pixel_bounds() -> None:
+    image = Image.new("RGB", (20, 10), "red")
+
+    cropped = crop_image(image, 2, 1, 18, 9)
+
+    assert cropped.size == (16, 8)

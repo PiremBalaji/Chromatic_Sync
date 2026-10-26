@@ -1,1 +1,1 @@
-"""Reusable image-processing modules for Chromatic Sync."""
+"""Chromatic Sync — garment color analysis and outfit compatibility modules."""
